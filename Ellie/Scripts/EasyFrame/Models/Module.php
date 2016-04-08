@@ -27,6 +27,9 @@ class Module extends AbstractScript
         $this->rootPath = $rootPath;
     }
 
+    /**
+     * Setup the module folders and files in the $root/Modules dir
+     */
     public function create()
     {
         if (!in_array("Modules", scandir($this->rootPath))) {
@@ -40,6 +43,9 @@ class Module extends AbstractScript
         $this->createModuleFiles();
     }
 
+    /**
+     * Create directory structure
+     */
     private function createModuleStructure()
     {
         $moduleRoot = "$this->rootPath/Modules/$this->name";
@@ -55,22 +61,19 @@ class Module extends AbstractScript
         $this->createController();
     }
 
+    /**
+     * Create the default controller with {$name}Controller.php as the filename
+     * @throws \Exception
+     */
     private function createController()
     {
-        $controllerFile = $this->tryOpenFile($this->templateDir . "/ControllerTemplate.php");
+        $text = $this->getFileData($this->templateDir . "/ControllerTemplate.php");
 
-        $lines = "";
-
-        $this->iterateLines($controllerFile, function ($line, $index) use (&$lines) {
-            $newLine = str_replace('$module', $this->name, $line);
-            $lines .= $newLine;
-        });
-
-        $this->closeFile($controllerFile);
+        $text = str_replace('$module', $this->name, $text);
 
         $this->createFile(
             "$this->rootPath/$this->name/Controllers/{$this->name}Controller.php",
-            $lines
+            $text
         );
     }
 }
