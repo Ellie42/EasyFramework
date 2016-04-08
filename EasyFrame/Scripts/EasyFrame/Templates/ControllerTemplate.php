@@ -2,6 +2,7 @@
 /**
  * Controller generated with EasyFrame
  */
+namespace $module$\Controllers;
 
 use EasyFrame\Controller\EasyFrameController;
 

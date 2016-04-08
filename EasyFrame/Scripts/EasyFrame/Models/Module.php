@@ -55,28 +55,20 @@ class Module extends AbstractScript
         mkdir($moduleRoot);
         mkdir("$moduleRoot/Controllers");
         mkdir("$moduleRoot/Models");
-        mkdir("$moduleRoot/Services");
+//        mkdir("$moduleRoot/Services");
         mkdir("$moduleRoot/Views");
     }
 
     private function createModuleFiles()
     {
-        $this->createController();
-    }
+        $controller =
+            new Controller($this->name, $this->rootPath, $this->templateDir);
+        $controller->create();
 
-    /**
-     * Create the default controller with {$name}Controller.php as the filename
-     * @throws \Exception
-     */
-    private function createController()
-    {
-        $text = $this->getFileData($this->templateDir . "/ControllerTemplate.php");
+        $routeText = $this->getFileData("$this->templateDir/routes.php");
 
-        $text = str_replace('$module$', $this->name, $text);
+        $routeText = str_replace('$module$', $this->name, $routeText);
 
-        $this->createFile(
-            $this->moduleRootDir . "/Controllers/{$this->name}Controller.php",
-            $text
-        );
+        $this->createFile("$this->moduleRootDir/routes.php", $routeText);
     }
 }
