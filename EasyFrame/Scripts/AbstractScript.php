@@ -6,7 +6,7 @@
  * Time: 14:09
  */
 
-namespace Ellie\Scripts;
+namespace EasyFrame\Scripts;
 
 
 class AbstractScript

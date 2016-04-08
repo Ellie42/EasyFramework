@@ -6,7 +6,7 @@
  * Time: 15:27
  */
 
-namespace Ellie\Traits;
+namespace EasyFrame\Traits;
 
 trait FileManagement
 {

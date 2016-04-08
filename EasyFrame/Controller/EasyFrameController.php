@@ -6,7 +6,7 @@
  * Time: 11:01
  */
 
-namespace Ellie\EasyFrame\Controller;
+namespace EasyFrame\Controller;
 
 
 abstract class EasyFrameController

@@ -6,7 +6,7 @@
  * Time: 08:14
  */
 
-use Ellie\Scripts\EasyFrame\EasyFrameCreate;
+use EasyFrame\Scripts\EasyFrame\EasyFrameCreate;
 
 include __DIR__ . "/../../bootstrap.php";
 

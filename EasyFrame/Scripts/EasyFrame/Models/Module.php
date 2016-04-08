@@ -6,17 +6,18 @@
  * Time: 14:08
  */
 
-namespace Ellie\Scripts\EasyFrame\Models;
+namespace EasyFrame\Scripts\EasyFrame\Models;
 
 
-use Ellie\Traits\FileManagement;
-use Ellie\Scripts\AbstractScript;
+use EasyFrame\Traits\FileManagement;
+use EasyFrame\Scripts\AbstractScript;
 
 class Module extends AbstractScript
 {
     use FileManagement;
 
     public $name;
+    protected $moduleRootDir;
     protected $rootPath;
     protected $templateDir;
 
@@ -38,6 +39,8 @@ class Module extends AbstractScript
         if (in_array($this->name, scandir("$this->rootPath/Modules/"))) {
             self::showError("Error: Module already exists in Modules directory\n");
         }
+
+        $this->moduleRootDir = "$this->rootPath/Modules/$this->name";
 
         $this->createModuleStructure();
         $this->createModuleFiles();
@@ -69,10 +72,10 @@ class Module extends AbstractScript
     {
         $text = $this->getFileData($this->templateDir . "/ControllerTemplate.php");
 
-        $text = str_replace('$module', $this->name, $text);
+        $text = str_replace('$module$', $this->name, $text);
 
         $this->createFile(
-            "$this->rootPath/$this->name/Controllers/{$this->name}Controller.php",
+            $this->moduleRootDir . "/Controllers/{$this->name}Controller.php",
             $text
         );
     }

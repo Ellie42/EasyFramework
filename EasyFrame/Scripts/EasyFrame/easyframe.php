@@ -6,4 +6,4 @@
  * Time: 13:51
  */
 
-include getcwd().'/src/Ellie/Scripts/EasyFrame.php';
+include '../EasyFrame.php';
