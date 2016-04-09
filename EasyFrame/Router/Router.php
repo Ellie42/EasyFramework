@@ -69,8 +69,56 @@ class Router
      */
     public function route(Request $request)
     {
-        foreach($this->routeConfig->routes as $route){
+        $foundRoute = $this->findRoute($request, $this->routeConfig->routes);
+    }
 
+    /**
+     * @param Request $request
+     * @param RouteModel[] $routes
+     * @return RouteModel
+     */
+    private function findRoute(Request $request, $routes)
+    {
+        $foundRoute = null;
+        $foundRouteMatchScore = 0;
+
+        $requestRoute = Object::create(RouteModel::class);
+
+        foreach ($routes as $route) {
+            $curMatchScore = $route->getRouteMatchScore($requestRoute);
+            if ($curMatchScore === false) {
+                continue;
+            }
+            if ($curMatchScore > $foundRouteMatchScore){
+                $foundRoute = $route;
+            }
         }
+
+        return $foundRoute;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
