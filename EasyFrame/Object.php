@@ -8,29 +8,20 @@
 
 namespace EasyFrame;
 
+use Mockery\CountValidator\Exception;
+
 class Object
 {
     protected static $objects = [];
 
     /**
      * @param string $name Class name or alias
-     * @param callable $initCallback
+     * @param array $params
      * @return mixed
      */
-    public static function create($name, $initCallback = null)
+    public static function create($name, array $params = null)
     {
-        $object = null;
-
-        //TODO add auto DI and caching
-        if (class_exists($name)) {
-            $object = new $name();
-        }
-
-        //If there is an initialisation callback then call it
-        if (is_callable($initCallback)) {
-            $res = $initCallback($object);
-            $object = $res === null ? $object : $res;
-        }
+        $object = self::getInstance($name, $params);
 
         //Sets properties that the object has requested
         $object = self::handleObjectRequests($object);
@@ -39,6 +30,23 @@ class Object
     }
 
     /**
+     * Return an object from class name
+     * @param string $class
+     * @param $params
+     * @return mixed
+     */
+    protected static function getInstance($class, $params = null)
+    {
+        //TODO add auto DI and caching
+        if (!class_exists($class)) {
+            throw new Exception("Class $class does not exist");
+        }
+
+        return $params === null ? new $class() : new $class(...$params);
+    }
+
+    /**
+     * TODO make this better or remove it
      * Objects can request various properties by implementing methods like
      * public function request"xxxxx"($request){}
      * @param $object

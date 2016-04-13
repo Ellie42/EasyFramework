@@ -13,10 +13,74 @@ use EasyFrame\Http\Request;
 
 class RouteModel
 {
-    public $route;
-    public $controller;
-    public $action;
-    public $method;
+    protected $route;
+    protected $controller;
+    protected $action;
+    protected $method;
+
+    /**
+     * @return mixed
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    /**
+     * @param mixed $route
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getController()
+    {
+        return $this->controller;
+    }
+
+    /**
+     * @param mixed $controller
+     */
+    public function setController($controller)
+    {
+        $this->controller = $controller;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    /**
+     * @param mixed $action
+     */
+    public function setAction($action)
+    {
+        $this->action = $action;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
+     * @param mixed $method
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+    }
 
     /**
      * RouteModel constructor.
@@ -27,6 +91,11 @@ class RouteModel
         if ($request === null) {
             return;
         }
+        $this->fromRequest($request);
+    }
+
+    public function fromRequest(Request $request)
+    {
         $this->route = $request->uri;
         $this->method = $request->method;
     }
@@ -35,31 +104,43 @@ class RouteModel
     public function setData(array $data)
     {
         foreach ($data as $key => $value) {
-            $this->$key = strtolower($value);
+            $this->$key = $value;
         }
     }
 
     /**
      * Check to see if a route matches another route and return a score to show how
-     * specific the match is.
+     * specific the match is. This allows static routes to override variable routes
      * @param RouteModel $routeModel
      * @return bool
      */
     public function getRouteMatchScore(RouteModel $routeModel)
     {
-        if ($routeModel->method !== $this->method) {
+        if (strtolower($routeModel->getMethod()) !== strtolower($this->getMethod())) {
             return false;
         }
-        $score = 0;
-        $routeASplit = explode("/", $this->route);
-        $requestRouteSplit = explode("/", $routeModel->route);
+        $routeASplit = explode("/", $this->getRoute());
+        $requestRouteSplit = explode("/", $routeModel->getRoute());
 
         //If the requested route requires another uri segment then there is no match
         if (count($routeASplit) < count($requestRouteSplit)) {
             return false;
         }
 
-        foreach ($routeASplit as $index => $routeSegment) {
+        return $this->getRouteScore($routeASplit, $requestRouteSplit);
+    }
+
+    /**
+     * Compare the split config route segments to the request route to check
+     * for validity and to get a match score
+     * @param array $configRoute
+     * @param array $requestRoute
+     * @return bool|int
+     */
+    private function getRouteScore(array $configRoute, array $requestRoute)
+    {
+        $score = 0;
+        foreach ($configRoute as $index => $routeSegment) {
             //There can be blank segments when splitting by /
             if ($routeSegment === "") {
                 continue;
@@ -68,14 +149,14 @@ class RouteModel
             //If the requested uri does not contain any more segments but the
             //config uri does, check if the remaining segment is optional
             //and return false if it is required
-            if (!isset($requestRouteSplit[$index])) {
+            if (!isset($requestRoute[$index])) {
                 if ($this->isRouteSegmentOptional($routeSegment)) {
                     return $score;
                 }
                 return false;
             }
 
-            $requestRouteSegment = $requestRouteSplit[$index];
+            $requestRouteSegment = $requestRoute[$index];
 
             //Get the score of the specific segment
             $segmentScore = $this->getSegmentScore($routeSegment, $requestRouteSegment);
@@ -112,6 +193,7 @@ class RouteModel
 
     /**
      * Calculate the segment score using the following table
+     * this allows static routes to override variable routes
      *
      * Optional -1
      * Static +2
@@ -131,7 +213,7 @@ class RouteModel
             if ($isOptional) {
                 //It's not a variable but it's optional
                 $score += -1;
-            } elseif ($requestRouteSegment !== $routeSegment) {
+            } elseif (strtolower($requestRouteSegment) !== strtolower($routeSegment)) {
                 //It's not a variable and it's not optional AND it doesn't match
                 return false;
             } else {

@@ -24,46 +24,46 @@ class RouteModelTest extends PHPUnit_Framework_TestCase
     {
         //Test Request Route
         $route = Object::create(RouteModel::class);
-        $route->route = "/a/b/c";
-        $route->method = "GET";
+        $route->setRoute("/a/b/c");
+        $route->setMethod("GET");
 
         //3 static
-        $this->routeModel->route = "/a/b/c";
-        $this->routeModel->method = "GET";
+        $this->routeModel->setRoute("/a/b/c");
+        $this->routeModel->setMethod("GET");
         $score = $this->routeModel->getRouteMatchScore($route);
         $this->assertEquals(6, $score);
 
         //1 optional 2 static
-        $this->routeModel->route = "/a/b?/c";
-        $this->routeModel->method = "GET";
+        $this->routeModel->setRoute("/a/b?/c");
+        $this->routeModel->setMethod("GET");
         $score = $this->routeModel->getRouteMatchScore($route);
         $this->assertEquals(3, $score);
 
         //2 optional 1 static
-        $this->routeModel->route = "/a/b?/c?";
-        $this->routeModel->method = "GET";
+        $this->routeModel->setRoute("/a/b?/c?");
+        $this->routeModel->setMethod("GET");
         $score = $this->routeModel->getRouteMatchScore($route);
         $this->assertEquals(0, $score);
 
         //1 static 2 variable
-        $this->routeModel->route = "/a/:b/:c";
-        $this->routeModel->method = "GET";
+        $this->routeModel->setRoute("/a/:b/:c");
+        $this->routeModel->setMethod("GET");
         $score = $this->routeModel->getRouteMatchScore($route);
         $this->assertEquals(4, $score);
 
         //1 static 1 variable 1 optional variable
-        $this->routeModel->route = "/a/:b/:c?";
-        $this->routeModel->method = "GET";
+        $this->routeModel->setRoute("/a/:b/:c?");
+        $this->routeModel->setMethod("GET");
         $score = $this->routeModel->getRouteMatchScore($route);
         $this->assertEquals(3, $score);
 
-        $this->routeModel->route = "/a/b?";
-        $this->routeModel->method = "GET";
+        $this->routeModel->setRoute("/a/b?");
+        $this->routeModel->setMethod("GET");
         $score = $this->routeModel->getRouteMatchScore($route);
         $this->assertEquals(false, $score);
 
-        $this->routeModel->route = "/a/b?";
-        $this->routeModel->method = "GET";
+        $this->routeModel->setRoute("/a/b?");
+        $this->routeModel->setMethod("GET");
         $score = $this->routeModel->getRouteMatchScore($route);
         $this->assertEquals(false, $score);
     }
@@ -72,16 +72,16 @@ class RouteModelTest extends PHPUnit_Framework_TestCase
     {
         //Test Request Route
         $route = Object::create(RouteModel::class);
-        $route->route = "/a/b/c";
-        $route->method = "GET";
+        $route->setRoute("/a/b/c");
+        $route->setMethod("GET");
 
-        $this->routeModel->route = "/a/b/c/d";
-        $this->routeModel->method = "GET";
+        $this->routeModel->setRoute("/a/b/c/d");
+        $this->routeModel->setMethod("GET");
         $score = $this->routeModel->getRouteMatchScore($route);
         $this->assertEquals(false, $score);
 
-        $this->routeModel->route = "/a/b/c/d?";
-        $this->routeModel->method = "GET";
+        $this->routeModel->setRoute("/a/b/c/d?");
+        $this->routeModel->setMethod("GET");
         $score = $this->routeModel->getRouteMatchScore($route);
         $this->assertEquals(6, $score);
     }
