@@ -10,12 +10,14 @@ namespace EasyFrame\View;
 
 
 use EasyFrame\View\Engines\ViewRenderEngine;
+use EasyFrame\View\Models\AbstractViewModel;
 
 class ViewRenderer
 {
     protected $renderEngine;
 
-    public function __construct(ViewRenderEngine $engine){
+    public function __construct(ViewRenderEngine $engine)
+    {
         $this->renderEngine = $engine;
     }
 
@@ -25,6 +27,7 @@ class ViewRenderer
      */
     public function render(AbstractViewModel $viewModel)
     {
-        die(include $viewModel->getTemplatePath());
+        echo $this->renderEngine->render($viewModel);
+        die;
     }
 }

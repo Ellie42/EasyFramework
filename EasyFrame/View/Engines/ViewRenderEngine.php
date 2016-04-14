@@ -9,7 +9,13 @@
 namespace EasyFrame\View\Engines;
 
 
+use EasyFrame\View\Models\AbstractViewModel;
+
 abstract class ViewRenderEngine
 {
-    public abstract function render($template);
+    /**
+     * @param AbstractViewModel $viewModel
+     * @return mixed
+     */
+    public abstract function render($viewModel);
 }

@@ -9,7 +9,9 @@
 namespace EasyFrame\Config;
 
 
-class ViewConfig
+use EasyFrame\Model\AbstractObject;
+
+class ViewConfig extends AbstractObject
 {
     /**
      * @var string

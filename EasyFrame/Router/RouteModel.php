@@ -19,6 +19,18 @@ class RouteModel
     protected $method;
 
     /**
+     * RouteModel constructor.
+     * @param Request $request
+     */
+    public function __construct(Request $request = null)
+    {
+        if ($request === null) {
+            return;
+        }
+        $this->fromRequest($request);
+    }
+
+    /**
      * @return mixed
      */
     public function getRoute()
@@ -35,11 +47,11 @@ class RouteModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getController()
+    public function getController() : string
     {
-        return $this->controller;
+        return $this->controller ?? "";
     }
 
     /**
@@ -51,11 +63,11 @@ class RouteModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getAction()
+    public function getAction() : string
     {
-        return $this->action;
+        return $this->action ?? "";
     }
 
     /**
@@ -82,22 +94,11 @@ class RouteModel
         $this->method = $method;
     }
 
-    /**
-     * RouteModel constructor.
-     * @param Request $request
-     */
-    public function __construct(Request $request = null)
-    {
-        if ($request === null) {
-            return;
-        }
-        $this->fromRequest($request);
-    }
 
     public function fromRequest(Request $request)
     {
-        $this->route = $request->uri;
-        $this->method = $request->method;
+        $this->route = $request->getUri();
+        $this->method = $request->getMethod();
     }
 
 

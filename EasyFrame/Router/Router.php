@@ -14,7 +14,7 @@ use EasyFrame\Helpers\Module\ModuleIterator;
 use EasyFrame\Http\Request;
 use EasyFrame\Object;
 use EasyFrame\View\AbstractViewModel;
-use EasyFrame\View\ErrorViewModel;
+use EasyFrame\View\HttpErrorViewModel;
 
 class Router
 {
@@ -73,12 +73,14 @@ class Router
      * @return AbstractViewModel
      * @throws HttpException
      */
-    public function route(Request $request)
+    public function route(Request &$request)
     {
         $foundRoute = $this->findRoute($request, $this->routeConfig->routes);
         if ($foundRoute === null) {
             throw new HttpException(404);
         }
+
+        $request->setRoute($foundRoute);
 
         return $foundRoute;
     }
