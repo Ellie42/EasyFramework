@@ -11,9 +11,10 @@ use EasyFrame\Scripts\EasyFrame\EasyFrameCreate;
 include __DIR__ . "/../../bootstrap.php";
 
 foreach ($argv as $index => $value) {
-    if ($value === "create") {
-
-        $creator = new EasyFrameCreate();
-        $creator->create(array_slice($argv, $index + 1));
+    switch ($value) {
+        case "create":
+            $creator = new EasyFrameCreate();
+            $creator->create(array_slice($argv, $index + 1));
+            break;
     }
 }

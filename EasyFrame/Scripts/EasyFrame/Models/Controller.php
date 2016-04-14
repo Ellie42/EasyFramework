@@ -9,35 +9,29 @@
 namespace EasyFrame\Scripts\EasyFrame\Models;
 
 
-use EasyFrame\Scripts\AbstractScript;
+use EasyFrame\Scripts\EasyFrame\Models\Tests\ControllerTest;
+use EasyFrame\Scripts\EasyFrame\Models\Tests\TestModel;
 use EasyFrame\Traits\FileManagement;
 
-class Controller extends AbstractScript
+class Controller extends AbstractFileModel
 {
     use FileManagement;
 
-    protected $rootDir;
-    protected $templateDir;
-    protected $moduleRootDir;
-    public $name;
-
-    public function __construct($name, $root, $templateDir)
+    public function create($withTest = false)
     {
-        $this->templateDir = $templateDir;
-        $this->name = $name;
-        $this->rootDir = $root;
-        $this->moduleRootDir = "$root/Modules/$name";
-    }
-
-    public function create()
-    {
+        $this->path = $this->moduleRootDir . "/$this->name/Controllers/{$this->name}Controller.php";
         $text = $this->getFileData($this->templateDir . "/ControllerTemplate.php");
+        $this->setType(self::TYPE_FILE);
 
         $text = str_replace('$module$', $this->name, $text);
-
         $this->createFile(
-            $this->moduleRootDir . "/Controllers/{$this->name}Controller.php",
+            $this->path,
             $text
         );
+
+        if ($withTest) {
+            $test = new ControllerTest($this->name, $this->rootPath, $this->templateDir);
+            $test->create($this);
+        }
     }
 }

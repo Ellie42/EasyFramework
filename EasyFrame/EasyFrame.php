@@ -35,6 +35,7 @@ class EasyFrame
     {
         $this->request = Object::singleton(Request::class, [$_SERVER]);
         Config::$rootDir = $rootDir;
+        Config::$testDir = $rootDir . "Tests";
         Config::$moduleDir = $rootDir . "Modules";
         $this->router = Object::create(Router::class);
         $this->controllerManager = Object::create(ControllerManager::class);

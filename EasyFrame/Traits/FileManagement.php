@@ -16,7 +16,7 @@ trait FileManagement
      * @return resource
      * @throws \Exception
      */
-    protected function tryOpenFile($filePath)
+    protected function tryOpenFile(string $filePath)
     {
         $fileHandle = fopen($filePath, 'r');
 

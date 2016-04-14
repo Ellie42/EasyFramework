@@ -40,7 +40,7 @@ class EasyFrameCreate extends AbstractScript
             self::showError(self::ERR_MSG_REQUIRED_VALUE_MISSING, "`name`\neg. create module \"ModuleName\"");
         }
 
-        $newModule = new Module($args[0],getcwd(), __DIR__ . "/Templates");
+        $newModule = new Module($args[0], getcwd(), __DIR__ . "/Templates");
         $newModule->create();
     }
 }

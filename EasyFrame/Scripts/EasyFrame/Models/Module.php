@@ -12,21 +12,9 @@ namespace EasyFrame\Scripts\EasyFrame\Models;
 use EasyFrame\Traits\FileManagement;
 use EasyFrame\Scripts\AbstractScript;
 
-class Module extends AbstractScript
+class Module extends AbstractFileModel
 {
     use FileManagement;
-
-    public $name;
-    protected $moduleRootDir;
-    protected $rootPath;
-    protected $templateDir;
-
-    public function __construct($name, $rootPath, $templateDirectory)
-    {
-        $this->templateDir = $templateDirectory;
-        $this->name = $name;
-        $this->rootPath = $rootPath;
-    }
 
     /**
      * Setup the module folders and files in the $root/Modules dir
@@ -63,7 +51,7 @@ class Module extends AbstractScript
     {
         $controller =
             new Controller($this->name, $this->rootPath, $this->templateDir);
-        $controller->create();
+        $controller->create(true);
 
         $routeText = $this->getFileData("$this->templateDir/routes.php");
 

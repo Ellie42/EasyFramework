@@ -18,6 +18,7 @@ class Config
 
     public static $rootDir;
     public static $moduleDir;
+    public static $testDir;
     /**
      * @var Errors
      */
