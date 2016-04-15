@@ -4,7 +4,7 @@
  */
 namespace $module$\Controllers;
 
-use EasyFrame\Controller\EasyFrameController;
+use EasyFrame\Controller\EasyFrameController;use EasyFrame\View\Models\ViewModel;
 
 class $module$Controller extends EasyFrameController
 {
@@ -13,6 +13,6 @@ class $module$Controller extends EasyFrameController
      */
     public function index()
     {
-
+        return ViewModel::create("$lcmodule$");
     }
 }

@@ -23,7 +23,7 @@ class Controller extends AbstractFileModel
         $text = $this->getFileData($this->templateDir . "/ControllerTemplate.php");
         $this->setType(self::TYPE_FILE);
 
-        $text = str_replace('$module$', $this->name, $text);
+        $this->populatePlaceholder($text);
         $this->createFile(
             $this->path,
             $text

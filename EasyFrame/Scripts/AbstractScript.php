@@ -11,7 +11,7 @@ namespace EasyFrame\Scripts;
 
 use CLIFramework\Command;
 
-class AbstractScript extends Command
+class AbstractScript
 {
     const ERR_MSG_REQUIRED_VALUE_MISSING = -1;
     const ERR_MSG_MISSING_PARAMETER = -2;

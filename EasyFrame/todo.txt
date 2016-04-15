@@ -1,2 +1,5 @@
 API based?
 Maybe try to simplify api interaction with models with minimal controller management
+
+Simplify route versioning with "switch/pivot" variable /a/V1/b????
+Route::resource("/api/$version/user","User/Controllers/$versionUserApiController");

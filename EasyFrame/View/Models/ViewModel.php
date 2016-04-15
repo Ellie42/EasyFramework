@@ -36,8 +36,9 @@ class ViewModel extends AbstractViewModel
         $this->module = $request->getModule();
         if (is_string($viewConfigOrPage)) {
             $this->setPage($viewConfigOrPage);
+        } else {
+            parent::__construct($viewConfigOrPage);
         }
-        parent::__construct($viewConfigOrPage);
     }
 
     /**

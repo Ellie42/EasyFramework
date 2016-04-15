@@ -53,4 +53,16 @@ class AbstractFileModel extends AbstractScript
     {
         $this->type = $type;
     }
+
+    /**
+     * @param $text
+     * @return string
+     */
+    protected function populatePlaceholder(&$text) : string
+    {
+        $text = str_replace('$module$', $this->name, $text);
+        $text = str_replace('$lcmodule$', strtolower($this->name), $text);
+
+        return $text;
+    }
 }

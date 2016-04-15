@@ -55,8 +55,21 @@ class Module extends AbstractFileModel
 
         $routeText = $this->getFileData("$this->templateDir/routes.php");
 
-        $routeText = str_replace('$module$', $this->name, $routeText);
+        $this->populatePlaceholder($routeText);
 
         $this->createFile("$this->moduleRootDir/routes.php", $routeText);
+
+        $this->createViewFile();
     }
+
+    private function createViewFile()
+    {
+        $template = $this->getFileData("$this->templateDir/view.phtml");
+        $view = new FileModel($this->name, $this->rootPath, $this->templateDir);
+        $view->setType(FileModel::TYPE_FILE);
+        $view->setPath("$this->moduleRootDir/Views/" . strtolower($this->name) . ".phtml");
+        $view->create($this->populatePlaceholder($template));
+    }
+
+
 }

@@ -48,6 +48,6 @@ abstract class AbstractFileTest extends AbstractFileModel
 
     private function getTestTemplate() : string
     {
-
+        return "test";
     }
 }
