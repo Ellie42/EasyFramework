@@ -4,27 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "72ff12aacb0dd90f12a774ce5630f79c",
-    "content-hash": "3bc98f5b018ad6891dbefc7726cc4fd0",
+    "hash": "f304b35a122eabc58a9c52bed12a4c75",
+    "content-hash": "365b718b36ee2d3ecddb9107f267040d",
     "packages": [
         {
             "name": "corneltek/class-template",
-            "version": "2.1.2",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/c9s/ClassTemplate.git",
-                "reference": "4bdb46a6b1a5245118e7bf08b4cdacdfdaadb77b"
+                "reference": "f213ff8cf772c89c13f5e6df53ea0ab60f2532b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/c9s/ClassTemplate/zipball/4bdb46a6b1a5245118e7bf08b4cdacdfdaadb77b",
-                "reference": "4bdb46a6b1a5245118e7bf08b4cdacdfdaadb77b",
+                "url": "https://api.github.com/repos/c9s/ClassTemplate/zipball/f213ff8cf772c89c13f5e6df53ea0ab60f2532b3",
+                "reference": "f213ff8cf772c89c13f5e6df53ea0ab60f2532b3",
                 "shasum": ""
             },
             "require": {
                 "corneltek/codegen": "^2",
                 "php": ">=5.3.0",
-                "twig/twig": "^1"
+                "twig/twig": "*"
             },
             "require-dev": {
                 "corneltek/phpunit-testmore": "dev-master"
@@ -48,7 +48,7 @@
             ],
             "description": "Class template Utilities",
             "homepage": "http://github.com/c9s/ClassTemplate",
-            "time": "2015-09-06 05:04:14"
+            "time": "2015-08-26 06:29:11"
         },
         {
             "name": "corneltek/cliframework",
@@ -109,32 +109,27 @@
         },
         {
             "name": "corneltek/codegen",
-            "version": "2.7.1",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/c9s/CodeGen.git",
-                "reference": "b2a1835b4a0c63cb5f1c1c0a44176adbbfd46dcd"
+                "reference": "5458c2ce84b1dd8c3d8c0705c3cd1b89a8937857"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/c9s/CodeGen/zipball/b2a1835b4a0c63cb5f1c1c0a44176adbbfd46dcd",
-                "reference": "b2a1835b4a0c63cb5f1c1c0a44176adbbfd46dcd",
+                "url": "https://api.github.com/repos/c9s/CodeGen/zipball/5458c2ce84b1dd8c3d8c0705c3cd1b89a8937857",
+                "reference": "5458c2ce84b1dd8c3d8c0705c3cd1b89a8937857",
                 "shasum": ""
             },
             "require": {
                 "doctrine/inflector": "*",
                 "php": ">=5.3.0",
-                "twig/twig": "^1 >=1.21"
+                "twig/twig": "*"
             },
             "require-dev": {
                 "corneltek/phpunit-testmore": "dev-master"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.8.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "CodeGen\\": "src/CodeGen/"
@@ -153,7 +148,7 @@
             ],
             "description": "PHP Code Generation Library",
             "homepage": "http://github.com/c9s/CodeGen",
-            "time": "2016-03-26 07:10:40"
+            "time": "2015-08-25 03:48:03"
         },
         {
             "name": "corneltek/getoptionkit",
@@ -508,21 +503,81 @@
             "time": "2016-03-03 16:49:40"
         },
         {
-            "name": "twig/twig",
-            "version": "v1.24.0",
+            "name": "symfony/polyfill-mbstring",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twigphp/Twig.git",
-                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "1289d16209491b584839022f29257ad859b8532d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
-                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/1289d16209491b584839022f29257ad859b8532d",
+                "reference": "1289d16209491b584839022f29257ad859b8532d",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2.7"
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2016-01-20 09:13:37"
+        },
+        {
+            "name": "twig/twig",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "16cfb319708163087786c713dfe9391826114edb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/16cfb319708163087786c713dfe9391826114edb",
+                "reference": "16cfb319708163087786c713dfe9391826114edb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5",
+                "symfony/polyfill-mbstring": "~1.0"
             },
             "require-dev": {
                 "symfony/debug": "~2.7",
@@ -531,7 +586,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.24-dev"
+                    "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
@@ -566,7 +621,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-01-25 21:22:18"
+            "time": "2016-04-01 06:56:37"
         }
     ],
     "packages-dev": [
@@ -1823,7 +1878,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "twig/twig": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

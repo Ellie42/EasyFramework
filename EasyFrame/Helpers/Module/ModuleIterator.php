@@ -9,12 +9,17 @@
 namespace EasyFrame\Helpers\Module;
 
 
+use EasyFrame\Config;
 use EasyFrame\Helpers\Module\Module;
 use EasyFrame\Object;
 
 class ModuleIterator
 {
     protected $moduleDir;
+
+    public function __construct(){
+        $this->moduleDir = Config::$moduleDir;
+    }
 
     public function iterateModules($callable)
     {
@@ -30,8 +35,4 @@ class ModuleIterator
         }
     }
 
-    public function requestModuleDir($moduleDir)
-    {
-        $this->moduleDir = $moduleDir;
-    }
 }

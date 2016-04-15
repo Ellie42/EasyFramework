@@ -9,18 +9,16 @@
 namespace EasyFrame\Router;
 
 use EasyFrame\Cache\AbstractCacheable;
+use EasyFrame\Config;
 
 class RouteConfig extends AbstractCacheable
 {
     public $routes;
     protected $moduleDir;
 
-    /**
-     * @param mixed $moduleDir
-     */
-    public function requestModuleDir($moduleDir)
+    public function __construct()
     {
-        $this->moduleDir = $moduleDir;
+        $this->moduleDir = Config::$moduleDir;
     }
 
     public function add(RouteModel $routeModel)

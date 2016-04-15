@@ -10,6 +10,7 @@ namespace EasyFrame\View\Models;
 
 
 use EasyFrame\Config\ViewConfig;
+use EasyFrame\Http\Request;
 use EasyFrame\Model\AbstractObject;
 use EasyFrame\Object;
 use EasyFrame\View\Helpers\IViewHelper;
@@ -17,10 +18,19 @@ use EasyFrame\View\Helpers\IViewHelper;
 class AbstractViewModel extends AbstractObject
 {
     /**
+     * @var Request
+     */
+    protected $request;
+    /**
+     * @var string
+     */
+    protected $module;
+    /**
      * @var ViewConfig
      */
     protected $templatePath;
     protected $content;
+    protected $viewDirectories;
     /**
      * @var IViewHelper[]
      */
@@ -30,9 +40,12 @@ class AbstractViewModel extends AbstractObject
      */
     protected $variables = [];
 
-    public function __construct(ViewConfig $config = null)
+    public function __construct(Request $request, $config = null)
     {
-        if ($config === null) {
+        $this->request = $request;
+        $this->module = $request->getModule();
+
+        if ($config === null || is_string($config)) {
             return;
         }
         $this->templatePath = $config->templatePath;
@@ -56,6 +69,39 @@ class AbstractViewModel extends AbstractObject
 
         $this->helpers[$alias ?? get_class($helper)] = $helper;
     }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModule()
+    {
+        return $this->module;
+    }
+
+    /**
+     * @param string $module
+     */
+    public function setModule($module)
+    {
+        $this->module = $module;
+    }
+
 
     /**
      * @return \EasyFrame\View\Helpers\IViewHelper[]
@@ -113,5 +159,23 @@ class AbstractViewModel extends AbstractObject
     public function setContent($content)
     {
         $this->content = $content;
+    }
+
+    /**
+     * @return array
+     */
+    public function getViewDirectories() : array
+    {
+        return $this->viewDirectories ?? [];
+    }
+
+    public function setViewDirectories($viewDirectories)
+    {
+        $this->viewDirectories = $viewDirectories;
+    }
+
+    public function getPathInView()
+    {
+        return explode("Views/", $this->templatePath)[1];
     }
 }

@@ -9,13 +9,14 @@
 namespace EasyFrame\View\Engines;
 
 
+use EasyFrame\Model\AbstractObject;
 use EasyFrame\View\Models\AbstractViewModel;
 
-abstract class ViewRenderEngine
+abstract class ViewRenderEngine extends AbstractObject
 {
     /**
      * @param AbstractViewModel $viewModel
      * @return mixed
      */
-    public abstract function render($viewModel);
+    public abstract function render(AbstractViewModel $viewModel) : string;
 }

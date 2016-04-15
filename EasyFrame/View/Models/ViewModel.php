@@ -15,15 +15,10 @@ use EasyFrame\Http\Request;
 
 class ViewModel extends AbstractViewModel
 {
-    protected $request;
     /**
      * @var string
      */
     protected $page;
-    /**
-     * @var string
-     */
-    protected $module;
 
     /**
      * ViewModel constructor.
@@ -32,12 +27,10 @@ class ViewModel extends AbstractViewModel
      */
     public function __construct(Request $request, $viewConfigOrPage = null)
     {
-        $this->request = $request;
-        $this->module = $request->getModule();
+        parent::__construct($request, $viewConfigOrPage);
+
         if (is_string($viewConfigOrPage)) {
             $this->setPage($viewConfigOrPage);
-        } else {
-            parent::__construct($viewConfigOrPage);
         }
     }
 
@@ -51,10 +44,15 @@ class ViewModel extends AbstractViewModel
     public function setPage(string $page, string $module = null)
     {
         $moduleName = $module??$this->module;
-        $pagePath = Config::$moduleDir . "/$moduleName/Views/$page.phtml";
+        $pagePath = Config::$moduleDir . "/$moduleName/Views/$page";
         if (file_exists($pagePath)) {
             return $this->setTemplatePath($pagePath);
         }
         throw new ViewNotFoundException("$pagePath not found");
     }
+
+//    private function hasExtension($page)
+//    {
+//        return count(explode(".", $page)) > 1;
+//    }
 }

@@ -25,12 +25,9 @@ class Router
     protected $routeConfig;
     protected $rootDir;
 
-    /**
-     * @param mixed $rootDir
-     */
-    public function requestRootDir($rootDir)
+    public function __construct()
     {
-        $this->rootDir = $rootDir;
+        $this->rootDir = Config::$rootDir;
     }
 
     /**

@@ -6,14 +6,15 @@
  * Time: 10:43
  */
 
-namespace EasyFrame\View\Engines\EasyFrame;
+namespace EasyFrame\View\Engines;
 
 
 use EasyFrame\View\Engines\ViewRenderEngine;
+use EasyFrame\View\Models\AbstractViewModel;
 
 class EasyFrameRenderEngine extends ViewRenderEngine
 {
-    public function render($viewModel) : string
+    public function render(AbstractViewModel $viewModel) : string
     {
         foreach ($viewModel->getVariables() as $varName => $varVal) {
             $$varName = $varVal;

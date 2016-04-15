@@ -8,13 +8,16 @@
 
 namespace EasyFrame;
 
+include __DIR__ . "/../bootstrap.php";
+
 use EasyFrame\Config\ViewConfig;
 use EasyFrame\Controller\ControllerManager;
 use EasyFrame\Exceptions\HttpException;
 use EasyFrame\Http\Request;
 use EasyFrame\Router\Router;
 use EasyFrame\Router\Route;
-use EasyFrame\View\Engines\EasyFrame\EasyFrameRenderEngine;
+use EasyFrame\View\Engines\EasyFrameRenderEngine;
+use EasyFrame\View\Engines\TwigRenderEngine;
 use EasyFrame\View\Helpers\ExceptionHelper;
 use EasyFrame\View\Models\HttpErrorViewModel;
 use EasyFrame\View\Models\ViewModel;
@@ -40,7 +43,7 @@ class EasyFrame
         $this->router = Object::create(Router::class);
         $this->controllerManager = Object::create(ControllerManager::class);
         $this->viewRenderer = Object::create(ViewRenderer::class, [
-            Object::create(EasyFrameRenderEngine::class)
+            Object::create(TwigRenderEngine::class)
         ]);
     }
 
@@ -76,12 +79,13 @@ class EasyFrame
      */
     protected function renderError(string $env, $e)
     {
+        $vr = ViewRenderer::create(EasyFrameRenderEngine::create());
         if ($env === "development") {
             $vm = ViewModel::create();
             $vm->useHelper(ExceptionHelper::class, "exHelper");
             $vm->setVariable("e", $e);
             $vm->setTemplatePath(Config::Errors()->getTemplateDir() . "/exception.phtml");
-            $this->viewRenderer->render($vm);
+            $vr->render($vm);
         }
     }
 

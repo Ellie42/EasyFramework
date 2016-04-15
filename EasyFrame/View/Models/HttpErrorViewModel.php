@@ -10,14 +10,15 @@ namespace EasyFrame\View\Models;
 
 
 use EasyFrame\Config\ViewConfig;
+use EasyFrame\Http\Request;
 
 class HttpErrorViewModel extends AbstractViewModel
 {
     public $code;
 
-    public function __construct($code, ViewConfig $configOrPage = null)
+    public function __construct(Request $request, $code, ViewConfig $configOrPage = null)
     {
-        parent::__construct($configOrPage);
+        parent::__construct($request, $configOrPage);
         $this->code = $code;
     }
 

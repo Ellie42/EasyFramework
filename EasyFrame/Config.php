@@ -9,6 +9,7 @@
 namespace EasyFrame;
 
 
+use EasyFrame\Config\AppConfig;
 use EasyFrame\Config\Errors;
 use EasyFrame\Traits\FileManagement;
 
@@ -19,6 +20,8 @@ class Config
     public static $rootDir;
     public static $moduleDir;
     public static $testDir;
+
+    private static $app;
     /**
      * @var Errors
      */
@@ -27,14 +30,20 @@ class Config
     /**
      * @return Errors
      */
-    public static function Errors()
+    public static function Errors() : Errors
     {
         return self::$errors;
+    }
+
+    public static function App() : AppConfig
+    {
+        return self::$app;
     }
 
     public static function load()
     {
         self::$errors = new Errors();
+        self::$app = new AppConfig();
         $configDir = self::$rootDir . "config";
         $files = array_slice(scandir($configDir), 2);
         foreach ($files as $file) {

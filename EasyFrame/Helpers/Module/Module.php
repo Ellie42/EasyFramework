@@ -9,6 +9,8 @@
 namespace EasyFrame\Helpers\Module;
 
 
+use EasyFrame\Config;
+
 class Module
 {
     /**
@@ -18,14 +20,17 @@ class Module
     public $dir;
     protected $moduleDir;
 
-
     public function load()
     {
+        $this->moduleDir = Config::$moduleDir;
         $this->dir = "$this->moduleDir/$this->name";
     }
 
-    public function requestModuleDir($dir)
+    /**
+     * @return mixed
+     */
+    public function getDir() : string
     {
-        $this->moduleDir = $dir;
+        return $this->dir ?? "";
     }
 }
