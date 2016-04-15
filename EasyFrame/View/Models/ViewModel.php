@@ -25,11 +25,19 @@ class ViewModel extends AbstractViewModel
      */
     protected $module;
 
-    public function __construct(Request $request, $viewConfig = null)
+    /**
+     * ViewModel constructor.
+     * @param Request $request
+     * @param string|Config\ViewConfig|null $viewConfigOrPage
+     */
+    public function __construct(Request $request, $viewConfigOrPage = null)
     {
         $this->request = $request;
         $this->module = $request->getModule();
-        parent::__construct($viewConfig);
+        if (is_string($viewConfigOrPage)) {
+            $this->setPage($viewConfigOrPage);
+        }
+        parent::__construct($viewConfigOrPage);
     }
 
     /**

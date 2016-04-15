@@ -15,9 +15,9 @@ class HttpErrorViewModel extends AbstractViewModel
 {
     public $code;
 
-    public function __construct($code, ViewConfig $config = null)
+    public function __construct($code, ViewConfig $configOrPage = null)
     {
-        parent::__construct($config);
+        parent::__construct($configOrPage);
         $this->code = $code;
     }
 

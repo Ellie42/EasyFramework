@@ -1,0 +1,2 @@
+API based?
+Maybe try to simplify api interaction with models with minimal controller management
