@@ -36,14 +36,17 @@ class EasyFrame
 
     public function __construct($rootDir)
     {
+        $this->loadConfig($rootDir);
+        include_once 'autoload.php';
+
         $this->request = Object::singleton(Request::class, [$_SERVER]);
-        Config::$rootDir = $rootDir;
-        Config::$testDir = $rootDir . "Tests";
-        Config::$moduleDir = $rootDir . "Modules";
         $this->router = Object::create(Router::class);
+        Route::setRouter($this->router);
+        $this->router->loadRoutes();
         $this->controllerManager = Object::create(ControllerManager::class);
+
         $this->viewRenderer = Object::create(ViewRenderer::class, [
-            Object::create(TwigRenderEngine::class)
+            Object::create(Config::App()->getDefaultRenderEngine())
         ]);
     }
 
@@ -53,11 +56,6 @@ class EasyFrame
     public function run(string $env = 'release')
     {
         $this->env = $env;
-        Config::load();
-        Route::setRouter($this->router);
-        $this->router->loadRoutes();
-
-        include_once 'autoload.php';
 
         try {
             $this->runApp();
@@ -100,5 +98,13 @@ class EasyFrame
         $view = $this->controllerManager->run($route, $this->request);
 
         $this->viewRenderer->render($view);
+    }
+
+    private function loadConfig($rootDir)
+    {
+        Config::$rootDir = $rootDir;
+        Config::$testDir = $rootDir . "Tests";
+        Config::$moduleDir = $rootDir . "Modules";
+        Config::load();
     }
 }
