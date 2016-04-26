@@ -8,8 +8,9 @@
 
 namespace EasyFrame\Controller;
 
+use EasyFrame\Model\AbstractObject;
 
-abstract class EasyFrameController
+abstract class EasyFrameController extends AbstractObject
 {
 
 }

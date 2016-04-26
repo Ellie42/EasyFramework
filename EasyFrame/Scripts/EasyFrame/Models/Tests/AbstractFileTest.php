@@ -39,15 +39,10 @@ abstract class AbstractFileTest extends AbstractFileModel
         $folderPath = implode("/", array_slice($splitPath, 0, $splitPathCount - 1));
         $this->path = "$this->testDir/$folderPath/{$fileNameNoEx}Test.$fileEx";
 
-        $this->createFile($this->path, $this->getTestTemplate());
-
         if (!is_dir("$this->testDir/$folderPath")) {
-            mkdir("$this->testDir/$folderPath", 0755, true);
+            mkdir("$this->testDir/$folderPath", 0777, true);
         }
-    }
 
-    private function getTestTemplate() : string
-    {
-        return "test";
+        $this->createFile($this->path, $this->getTestTemplate());
     }
 }

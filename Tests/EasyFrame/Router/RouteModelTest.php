@@ -62,8 +62,8 @@ class RouteModelTest extends PHPUnit_Framework_TestCase
         $score = $this->routeModel->getRouteMatchScore($route);
         $this->assertEquals(false, $score);
 
-        $this->routeModel->setRoute("/a/b?");
-        $this->routeModel->setMethod("GET");
+        $this->routeModel->setRoute("/a/b?/c");
+        $this->routeModel->setMethod("POST");
         $score = $this->routeModel->getRouteMatchScore($route);
         $this->assertEquals(false, $score);
     }

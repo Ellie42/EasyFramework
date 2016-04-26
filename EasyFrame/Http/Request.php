@@ -9,10 +9,13 @@
 namespace EasyFrame\Http;
 
 
+use EasyFrame\Helpers\Common\ArrayHelper;
 use EasyFrame\Router\RouteModel;
 
 class Request
 {
+    use ArrayHelper;
+
     protected $uri;
     protected $method;
     protected $action = [];
@@ -23,8 +26,8 @@ class Request
 
     public function __construct($server)
     {
-        $this->uri = $server["REQUEST_URI"];
-        $this->method = $server["REQUEST_METHOD"];
+        $this->uri = $this->aVal($server,"REQUEST_URI");
+        $this->method = $this->aVal($server,"REQUEST_METHOD");;
     }
 
     /**

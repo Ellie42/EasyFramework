@@ -10,6 +10,7 @@ namespace EasyFrame\View\Engines;
 
 
 use EasyFrame\View\Models\AbstractViewModel;
+use EasyFrame\View\Models\HttpErrorViewModel;
 
 class TwigRenderEngine extends ViewRenderEngine
 {

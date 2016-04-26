@@ -28,11 +28,12 @@ class ViewRenderer extends AbstractObject
     /**
      * Render a view model into plain html
      * @param AbstractViewModel $viewModel
+     * @param ViewRenderEngine $engine
      */
-    public function render(AbstractViewModel $viewModel)
+    public function render(AbstractViewModel $viewModel,ViewRenderEngine $engine = null)
     {
         $viewModel->setViewDirectories($this->getAllViewDirectories());
-        echo $this->renderEngine->render($viewModel);
+        echo $engine === null ? $this->renderEngine->render($viewModel) : $engine->render($viewModel);
         die;
     }
 

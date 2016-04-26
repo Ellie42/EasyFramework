@@ -33,7 +33,7 @@ class Errors
     /**
      * @param mixed $templateDir
      */
-    public function setTemplateDir($templateDir)
+    public function setHttpTemplateDir($templateDir)
     {
         if ($templateDir[strlen($templateDir) - 1] === "/") {
             $templateDir = substr($templateDir, 0, -1);

@@ -176,6 +176,6 @@ class AbstractViewModel extends AbstractObject
 
     public function getPathInView()
     {
-        return explode("Views/", $this->templatePath)[1];
+        return explode("Views/", $this->templatePath)[1]??$this->templatePath;
     }
 }

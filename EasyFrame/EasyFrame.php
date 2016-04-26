@@ -17,7 +17,6 @@ use EasyFrame\Http\Request;
 use EasyFrame\Router\Router;
 use EasyFrame\Router\Route;
 use EasyFrame\View\Engines\EasyFrameRenderEngine;
-use EasyFrame\View\Engines\TwigRenderEngine;
 use EasyFrame\View\Helpers\ExceptionHelper;
 use EasyFrame\View\Models\HttpErrorViewModel;
 use EasyFrame\View\Models\ViewModel;
@@ -57,12 +56,21 @@ class EasyFrame
     {
         $this->env = $env;
 
+        //TODO implement test environment
+        if ($env === "testing") {
+            return;
+        }
+
         try {
             $this->runApp();
         } catch (HttpException $e) {
             $this->viewRenderer->render(
-                Object::create(HttpErrorViewModel::class, [$e->getCode(),
-                    ViewConfig::create(Config::Errors()->getTemplateDir())])
+                Object::create(HttpErrorViewModel::class,
+                    [
+                        $e->getCode(),
+                        ViewConfig::create(Config::Errors()->getTemplateDir())
+                    ]),
+                EasyFrameRenderEngine::create()
             );
         } catch (\Throwable $e) {
             $this->renderError($env, $e);
